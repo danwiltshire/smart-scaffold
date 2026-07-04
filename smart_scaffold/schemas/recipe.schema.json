@@ -21,7 +21,10 @@
     "tags": {
       "description": "Tags for the recipe, used for searching",
       "type": "array",
-      "examples": ["docker", "ecr"]
+      "examples": ["docker", "ecr"],
+      "items": {
+        "type": "string"
+      }
     }
   },
   "additionalProperties": false,
