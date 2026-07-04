@@ -18,5 +18,7 @@
       "type": "string",
       "examples": ["Builds and deploys Docker images to ECS Services."]
     }
-  }
+  },
+  "additionalProperties": false,
+  "minProperties": 3
 }
