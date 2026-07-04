@@ -17,6 +17,11 @@
       "description": "What the recipe does",
       "type": "string",
       "examples": ["Builds and deploys Docker images to ECS Services."]
+    },
+    "tags": {
+      "description": "Tags for the recipe, used for searching",
+      "type": "array",
+      "examples": ["docker", "ecr"]
     }
   },
   "additionalProperties": false,
