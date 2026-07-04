@@ -1,4 +1,11 @@
+import logging
+
 import click
+
+from smart_scaffold.modules.config.main import config
+from smart_scaffold.modules.recipes.main import recipe
+
+logging.basicConfig(level=logging.INFO)
 
 
 @click.group()
@@ -7,13 +14,8 @@ def cli():
     pass
 
 
-@cli.command()
-def get_recipes():
-    """Gets all available recipes."""
-    pass
-
-
-cli.add_command(get_recipes)
+cli.add_command(config)
+cli.add_command(recipe)
 
 
 if __name__ == "__main__":

@@ -10,9 +10,10 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "github-copilot-sdk>=1.0.5",
-    "click>=8.0",
-    "rich>=13.0",
-    "halo>=0.0.31",
+    "click>=8.4.2",
+    "pygithub>=2.9.1",
+    "pandas>=3.0.3",
+    "tabulate>=0.10.0",
 ]
 
 [project.scripts]
@@ -28,7 +29,7 @@ package = true
 dev = [
     "pre-commit>=4.5.1",
     "pytest>=9.0.3",
-    "python-semantic-release>=10.5.3",
+    "python-semantic-release",
 ]
 
 [tool.pytest.ini_options]
@@ -43,7 +44,7 @@ upload_to_vcs_release = false
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = [
