@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "smart-scaffold"
+version = "1.0.0"
+description = "Context-aware project scaffolding powered by GitHub Copilot SDK."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "github-copilot-sdk>=1.0.5",
+    "click>=8.0",
+    "rich>=13.0",
+    "halo>=0.0.31",
+]
+
+[project.scripts]
+smart-scaffold = "smart_scaffold.main:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["smart_scaffold"]
+
+[tool.uv]
+package = true
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.3",
+    "python-semantic-release>=10.5.3",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+build_command = "uv build"
+
+[tool.semantic_release.publish]
+upload_to_vcs_release = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade — keep syntax modern
+    "S",    # flake8-bandit — security
+    "B",    # flake8-bugbear
+    "A",    # flake8-builtins — don't shadow builtins
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+    "G",    # flake8-logging — no f-strings in log calls
+    "PT",   # flake8-pytest-style
+    "RUF",  # Ruff-specific rules
+]
+# S101 (assert) is normal in tests; S311 (random) is fine in non-crypto contexts
+ignore = ["S101", "S311"]
+
+[tool.ruff.lint.per-file-ignores]
+# Bandit is noisy in tests (hardcoded URLs, assert statements, etc.)
+"tests/**/*.py" = ["S"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["smart_scaffold"]

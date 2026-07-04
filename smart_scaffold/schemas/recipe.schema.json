@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/danwiltshire/smart-scaffold/schemas/recipe.schema.json",
+  "title": "Recipe",
+  "description": "A smart-scaffold recipe",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The recipe name",
+      "type": "string"
+    },
+    "type": {
+      "description": "The type of recipe, e.g. github-actions",
+      "enum": ["github-actions"]
+    },
+    "description": {
+      "description": "What the recipe does",
+      "type": "string",
+      "examples": ["Builds and deploys Docker images to ECS Services."]
+    }
+  }
+}
