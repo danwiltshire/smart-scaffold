@@ -1,7 +1,7 @@
 import functools
+import json
 import logging
 import os
-import shutil
 import subprocess
 from enum import StrEnum
 
@@ -36,16 +36,6 @@ def get_github_token() -> str:
         ) from exc
 
 
-def _max_col_width(data: pd.DataFrame, padding: int = 3) -> int:
-    cols = len(data.columns)
-    if cols == 0:
-        return 10
-
-    terminal_width = shutil.get_terminal_size((80, 20)).columns
-    per_col = max((terminal_width - cols * padding) // cols, 10)
-    return per_col
-
-
 class OutputFormat(StrEnum):
     COMPACT = "compact"
     WIDE = "wide"
@@ -61,7 +51,8 @@ def format_dataframe(
         return ""
 
     if output_format == OutputFormat.JSON:
-        return data.to_json(orient="records", indent=2)
+        # Using json.dumps because Pandas' to_json() escapes forward slashes.
+        return json.dumps(data.to_dict(orient="records"), indent=2)
 
     if output_format == OutputFormat.WIDE:
         return data.to_markdown(tablefmt="github", index=False)
