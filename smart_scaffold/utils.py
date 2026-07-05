@@ -2,6 +2,7 @@ import functools
 import json
 import logging
 import os
+import re
 import subprocess
 from enum import StrEnum
 
@@ -76,3 +77,14 @@ def format_option(f):
         return f(*args, **kwargs)
 
     return wrapper_format_option
+
+
+def validate_repository_name(ctx, param, value):
+    pattern = re.compile(r"^[^/]+/[^/]+$")
+
+    if not bool(pattern.match(value)):
+        raise click.BadParameter(
+            "Repository should include the GitHub owner, e.g. contoso/my-repo."
+        )
+
+    return value
